@@ -1,0 +1,22 @@
+variable "aws_region" {
+  description = "AWS region to launch servers."
+  default     = "us-east-1"
+}
+variable "vpcprefix" {
+  description = "VPC prefix"
+  default     = ""
+}
+variable "vpc_cidr" {
+  description = "VPC CIDR range"
+  default = "172.31.0.0/16"
+}
+variable "private_subnets" {
+  type = "list"
+  description = "Private subnets"
+  default = ["172.31.0.0/24","172.31.1.0/24","172.31.2.0/24"]
+}
+variable "public_subnets" {
+  type = "list"
+  description = "Public subnets"
+  default = ["172.31.3.0/24","172.31.4.0/24","172.31.5.0/24"]
+}
