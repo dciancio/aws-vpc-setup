@@ -4,14 +4,14 @@ resource "aws_vpc" "default" {
   enable_dns_support   = true
   enable_dns_hostnames = true
   tags = {
-    Name = "${var.vpcprefix}-vpc"
+    "Name" = "${var.vpcprefix}-vpc"
   }
 }
 
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.default.id
   tags = {
-    Name = "${var.vpcprefix}-igw"
+    "Name" = "${var.vpcprefix}-igw"
   }
 }
 
@@ -19,7 +19,7 @@ resource "aws_eip" "eip" {
   count = length(var.public_subnets)
   vpc   = true
   tags = {
-    Name = "${var.vpcprefix}-eip-${count.index}"
+    "Name" = "${var.vpcprefix}-eip-${count.index}"
   }
 }
 
@@ -32,7 +32,7 @@ resource "aws_nat_gateway" "public" {
     aws_eip.eip,
   ]
   tags = {
-    Name = "${var.vpcprefix}-ngw-${count.index}"
+    "Name" = "${var.vpcprefix}-ngw-${count.index}"
   }
 }
 
@@ -41,7 +41,7 @@ resource "aws_subnet" "public" {
   vpc_id     = aws_vpc.default.id
   cidr_block = var.public_subnets[count.index]
   tags = {
-    Name = "${var.vpcprefix}-public-${count.index}"
+    "Name" = "${var.vpcprefix}-public-${count.index}"
   }
   availability_zone = data.aws_availability_zones.available.names[count.index]
 }
@@ -51,7 +51,7 @@ resource "aws_subnet" "private" {
   vpc_id     = aws_vpc.default.id
   cidr_block = var.private_subnets[count.index]
   tags = {
-    Name = "${var.vpcprefix}-private-${count.index}"
+    "Name" = "${var.vpcprefix}-private-${count.index}"
   }
   availability_zone = data.aws_availability_zones.available.names[count.index]
 }
@@ -60,7 +60,7 @@ resource "aws_route_table" "public" {
   count  = length(var.public_subnets)
   vpc_id = aws_vpc.default.id
   tags = {
-    Name = "${var.vpcprefix}-public-${count.index}"
+    "Name" = "${var.vpcprefix}-public-${count.index}"
   }
   depends_on = [aws_internet_gateway.igw]
   route {
@@ -73,7 +73,7 @@ resource "aws_route_table" "private" {
   count  = length(var.private_subnets)
   vpc_id = aws_vpc.default.id
   tags = {
-    Name = "${var.vpcprefix}-private-${count.index}"
+    "Name" = "${var.vpcprefix}-private-${count.index}"
   }
   depends_on = [aws_nat_gateway.public]
   route {

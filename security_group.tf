@@ -13,7 +13,7 @@ resource "aws_default_security_group" "default" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {
-    Name = "${var.vpcprefix}-default-sg"
+    "Name" = "${var.vpcprefix}-default-sg"
   }
 }
 
@@ -37,7 +37,7 @@ resource "aws_security_group" "sec_bastion" {
     create_before_destroy = true
   }
   tags = {
-    Name = "${var.vpcprefix}-bastion-sg"
+    "Name" = "${var.vpcprefix}-bastion-sg"
   }
 }
 
