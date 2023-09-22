@@ -13,5 +13,7 @@
 2) Modify CIDR ranges in variables.tf
 3) Execute using:
 
-```terraform init```
-```terraform apply```
+`terraform init`
+
+`terraform apply`
+
